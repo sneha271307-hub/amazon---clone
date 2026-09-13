@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Water Conservation — Survey & Awareness</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600;6..72,700&family=Work+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#EFF5F3;
+    --surface:#FFFFFF;
+    --ink:#0E2A2E;
+    --ink-soft: rgba(14,42,46,0.68);
+    --teal:#0E5C68;
+    --aqua:#1AAFBF;
+    --leaf:#4C7A52;
+    --amber:#C77D2E;
+    --line: rgba(14,42,46,0.14);
+  }
+  *{ box-sizing:border-box; }
+  html{ scroll-behavior:smooth; }
+  body{
+    margin:0; background:var(--bg); color:var(--ink);
+    font-family:'Work Sans', sans-serif; line-height:1.5;
+  }
+  h1,h2,h3{ font-family:'Newsreader', serif; margin:0; }
+  .mono{ font-family:'IBM Plex Mono', monospace; }
+  a{ color:var(--teal); }
+  .wrap{ max-width:1080px; margin:0 auto; padding:0 24px; }
+  section{ display:none; padding:64px 0; }
+  section.active{ display:block; }
+
+  /* NAV */
+  nav{
+    position:sticky; top:0; z-index:20; background:rgba(239,245,243,0.92);
+    backdrop-filter:blur(6px); border-bottom:1px solid var(--line);
+  }
+  .nav-inner{ max-width:1080px; margin:0 auto; padding:16px 24px; display:flex; justify-content:space-between; align-items:center; }
+  .brand{ font-family:'Newsreader',serif; font-weight:600; font-size:19px; display:flex; align-items:center; gap:8px; }
+  .brand svg{ width:22px; height:22px; }
+  .nav-links{ display:flex; gap:6px; }
+  .nav-links button{
+    font-family:'Work Sans',sans-serif; font-size:13.5px; font-weight:500; background:none; border:none;
+    padding:8px 14px; border-radius:20px; cursor:pointer; color:var(--ink-soft);
+  }
+  .nav-links button.active{ background:var(--teal); color:#fff; }
+  @media (max-width:640px){ .nav-links{ flex-wrap:wrap; gap:4px; } .nav-links button{ padding:6px 10px; font-size:12px;} .brand span.full{display:none;} }
+
+  /* HERO */
+  .hero{
+    padding:64px 0 40px; display:grid; grid-template-columns: 1.1fr 0.9fr; gap:40px; align-items:center;
+  }
+  @media (max-width:800px){ .hero{ grid-template-columns:1fr; } }
+  .eyebrow{
+    font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:0.14em; text-transform:uppercase;
+    color:var(--teal); display:flex; align-items:center; gap:8px; margin-bottom:12px;
+  }
+  .eyebrow .dot{ width:7px; height:7px; border-radius:50%; background:var(--aqua); }
+  .hero h1{ font-size:clamp(34px,5vw,54px); line-height:1.04; font-weight:600; letter-spacing:-0.01em; }
+  .hero p.lead{ font-size:16px; color:var(--ink-soft); max-width:480px; margin:16px 0 24px; }
+  .cta-row{ display:flex; gap:10px; flex-wrap:wrap; }
+  .btn{
+    font-family:'Work Sans',sans-serif; font-weight:500; font-size:14px; padding:11px 20px; border-radius:4px;
+    border:1px solid var(--teal); cursor:pointer;
+  }
+  .btn.primary{ background:var(--teal); color:#fff; }
+  .btn.ghost{ background:transparent; color:var(--teal); }
+
+  .hero-visual{ display:flex; justify-content:center; }
+  .hero-visual svg{ width:100%; max-width:340px; }
+
+  .wave-divider{ display:block; width:100%; height:40px; margin-top:8px; }
+
+  /* SECTION HEAD */
+  .sec-head{ margin-bottom:28px; max-width:640px; }
+  .sec-head .eyebrow{ margin-bottom:8px; }
+  .sec-head h2{ font-size:clamp(26px,3.4vw,36px); font-weight:600; }
+  .sec-head p{ color:var(--ink-soft); font-size:15px; margin-top:8px; }
+
+  /* TEXT BLOCKS */
+  .two-col{ display:grid; grid-template-columns:1fr 1fr; gap:32px; margin-bottom:48px; }
+  @media (max-width:760px){ .two-col{ grid-template-columns:1fr; } }
+  .block h3{ font-size:19px; font-weight:600; margin-bottom:10px; }
+  .block p{ color:var(--ink-soft); font-size:14.5px; }
+
+  /* STAT CARDS */
+  .stat-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin:8px 0 52px; }
+  @media (max-width:760px){ .stat-grid{ grid-template-columns:repeat(2,1fr);} }
+  .stat-card{
+    background:var(--surface); border:1px solid var(--line); border-radius:6px; padding:20px 16px;
+    border-top:3px solid var(--aqua);
+  }
+  .stat-card b{ font-family:'IBM Plex Mono',monospace; font-size:30px; font-weight:500; display:block; color:var(--teal); }
+  .stat-card span{ font-size:12.5px; color:var(--ink-soft); line-height:1.4; display:block; margin-top:6px; }
+  .stat-card .src{ font-family:'IBM Plex Mono',monospace; font-size:10px; color:rgba(14,42,46,0.4); margin-top:8px; display:block; }
+
+  /* ABOUT PROJECT */
+  .about-grid{ display:grid; grid-template-columns:1fr 1fr; gap:20px; }
+  @media (max-width:760px){ .about-grid{ grid-template-columns:1fr; } }
+  .about-card{ background:var(--surface); border:1px solid var(--line); border-radius:6px; padding:22px; }
+  .about-card h3{ font-size:17px; font-weight:600; margin-bottom:8px; display:flex; align-items:center; gap:8px;}
+  .about-card h3 .num{ font-family:'IBM Plex Mono',monospace; font-size:12px; color:var(--aqua); }
+  .about-card p, .about-card li{ font-size:14px; color:var(--ink-soft); }
+  .about-card ul{ padding-left:18px; margin:6px 0; }
+  .edit-note{ font-family:'IBM Plex Mono',monospace; font-size:11px; color:var(--amber); background:rgba(199,125,46,0.1); padding:2px 6px; border-radius:3px; }
+
+  /* TIPS */
+  .tips-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
+  @media (max-width:760px){ .tips-grid{ grid-template-columns:1fr 1fr; } }
+  @media (max-width:480px){ .tips-grid{ grid-template-columns:1fr; } }
+  .tip-card{
+    background:var(--surface); border:1px solid var(--line); border-radius:6px; padding:20px;
+    display:flex; flex-direction:column; gap:8px;
+  }
+  .tip-num{ font-family:'IBM Plex Mono',monospace; font-size:11px; color:var(--leaf); }
+  .tip-card h3{ font-size:15.5px; font-weight:600; }
+  .tip-card p{ font-size:13px; color:var(--ink-soft); margin:0; }
+  .tip-icon{ font-size:22px; }
+
+  /* CONTACT */
+  .contact-grid{ display:grid; grid-template-columns:1fr 1fr; gap:36px; align-items:start; }
+  @media (max-width:760px){ .contact-grid{ grid-template-columns:1fr; } }
+  form label{ display:block; font-family:'IBM Plex Mono',monospace; font-size:11px; text-transform:uppercase; letter-spacing:0.05em; color:var(--teal); margin:14px 0 6px;}
+  form label:first-child{ margin-top:0; }
+  form input, form textarea{
+    width:100%; border:1px solid var(--line); background:var(--surface); border-radius:4px;
+    padding:10px 12px; font-family:'Work Sans',sans-serif; font-size:14px; color:var(--ink);
+  }
+  form textarea{ min-height:100px; resize:vertical; }
+  form input:focus, form textarea:focus{ outline:2px solid var(--aqua); outline-offset:1px; }
+  .form-msg{ font-size:12.5px; margin-top:10px; color:var(--teal); min-height:16px; }
+  .contact-side p{ font-size:14px; color:var(--ink-soft); }
+  .contact-side .line{ display:flex; gap:10px; margin:10px 0; font-size:13.5px; }
+
+  /* REPORT */
+  .report-grid{ display:grid; grid-template-columns: 380px 1fr; gap:24px; align-items:start; }
+  @media (max-width:820px){ .report-grid{ grid-template-columns:1fr; } }
+  .report-panel{ background:var(--surface); border:1px solid var(--line); border-radius:6px; padding:22px; }
+  .report-panel label{ display:block; font-family:'IBM Plex Mono',monospace; font-size:11px; text-transform:uppercase; letter-spacing:0.05em; color:var(--teal); margin:14px 0 6px; }
+  .report-panel label:first-of-type{ margin-top:0; }
+  .report-panel input[type=text], .report-panel textarea{
+    width:100%; border:1px solid var(--line); background:#fff; border-radius:4px;
+    padding:10px 11px; font-family:'Work Sans',sans-serif; font-size:14px; color:var(--ink);
+  }
+  .report-panel textarea{ min-height:70px; resize:vertical; }
+  .report-panel input:focus, .report-panel textarea:focus{ outline:2px solid var(--aqua); outline-offset:1px; }
+  .cats{ display:flex; flex-wrap:wrap; gap:6px; }
+  .cat-btn{
+    font-family:'IBM Plex Mono',monospace; font-size:11.5px; padding:6px 10px; border-radius:20px;
+    border:1px solid var(--line); background:#fff; cursor:pointer; color:var(--ink);
+  }
+  .cat-btn.active{ background:var(--teal); color:#fff; border-color:var(--teal); }
+  .photo-drop{
+    border:1px dashed var(--line); border-radius:4px; padding:14px; text-align:center;
+    cursor:pointer; font-size:12.5px; color:var(--ink-soft); background:#fff;
+  }
+  .photo-drop img{ max-width:100%; max-height:140px; border-radius:3px; display:block; margin:0 auto; }
+  .geo-status{ font-family:'IBM Plex Mono',monospace; font-size:11.5px; color:var(--teal); min-height:16px; margin-top:8px; }
+  .report-msg{ font-size:12.5px; margin-top:10px; }
+  .report-msg.err{ color:var(--amber); }
+  .report-msg.ok{ color:var(--teal); }
+  .find-row{ display:flex; gap:6px; margin-bottom:14px; }
+  .find-row input{ width:150px; border:1px solid var(--line); border-radius:4px; padding:8px 10px; font-family:'Work Sans',sans-serif; font-size:13px; }
+  .report-card{
+    background:var(--surface); border:1px solid var(--line); border-radius:6px;
+    padding:16px; margin-bottom:14px;
+  }
+  .report-card.highlight{ outline:2px solid var(--aqua); outline-offset:2px; }
+  .rcard-top{ display:flex; gap:12px; }
+  .rcard-photo{ width:80px; height:80px; border-radius:4px; object-fit:cover; flex-shrink:0; background:#e4ede9; }
+  .rcard-tag{ display:inline-block; font-family:'IBM Plex Mono',monospace; font-size:10.5px; text-transform:uppercase; letter-spacing:0.05em; padding:3px 8px; border-radius:20px; margin-bottom:6px; }
+  .rcard-title{ font-family:'Newsreader',serif; font-weight:600; font-size:16px; margin:0 0 4px; }
+  .rcard-desc{ font-size:13.5px; color:var(--ink-soft); line-height:1.45; margin:0 0 8px; }
+  .rcard-meta{ display:flex; flex-wrap:wrap; gap:12px; font-family:'IBM Plex Mono',monospace; font-size:11px; color:var(--teal); border-top:1px dotted var(--line); padding-top:8px; margin-top:4px; }
+  .rcard-actions{ display:flex; gap:8px; margin-top:10px; }
+  .rcard-actions button{ font-family:'IBM Plex Mono',monospace; font-size:11px; border:1px solid var(--line); background:#fff; padding:5px 9px; border-radius:4px; cursor:pointer; color:var(--ink); }
+  .report-empty{ font-family:'IBM Plex Mono',monospace; font-size:12.5px; color:var(--ink-soft); padding:30px 10px; text-align:center; border:1px dashed var(--line); border-radius:6px; }
+  .share-note{ font-size:12px; color:var(--ink-soft); margin-bottom:16px; }
+
+  footer{ text-align:center; padding:30px 0; font-size:11.5px; color:rgba(14,42,46,0.45); font-family:'IBM Plex Mono',monospace; }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <div class="brand">
+      <svg viewBox="0 0 24 24" fill="none"><path d="M12 2C12 2 5 11 5 15.5C5 19.09 8.13 22 12 22C15.87 22 19 19.09 19 15.5C19 11 12 2 12 2Z" fill="#1AAFBF"/></svg>
+      <span class="full">Water Conservation</span>
+    </div>
+    <div class="nav-links" id="navLinks">
+      <button data-target="home" class="active">Home</button>
+      <button data-target="about">About Project</button>
+      <button data-target="tips">Saving Tips</button>
+      <button data-target="report">Report Issue</button>
+      <button data-target="contact">Contact</button>
+    </div>
+  </div>
+</nav>
+
+<!-- ===================== HOME ===================== -->
+<section id="home" class="active">
+  <div class="wrap">
+    <div class="hero">
+      <div>
+        <div class="eyebrow"><span class="dot"></span> WATER CONSERVATION SURVEY & AWARENESS</div>
+        <h1>Every drop counts, <br>starting at home.</h1>
+        <p class="lead">A student survey and awareness project on household water conservation — what it means, why it matters, and small habits that add up to real savings.</p>
+        <div class="cta-row">
+          <button class="btn primary" data-target="tips">See saving tips</button>
+          <button class="btn ghost" data-target="about">About the project</button>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <svg viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="150" cy="150" r="130" fill="#FFFFFF" stroke="#DCE7E5" stroke-width="1"/>
+          <path d="M150 55C150 55 95 145 95 190C95 220.376 119.624 245 150 245C180.376 245 205 220.376 205 190C205 145 150 55 150 55Z" fill="#1AAFBF" opacity="0.9"/>
+          <path d="M150 95C150 95 118 155 118 185C118 203.225 132.775 218 151 218" stroke="#EFF5F3" stroke-width="6" stroke-linecap="round" fill="none" opacity="0.6"/>
+          <circle cx="150" cy="150" r="130" fill="none" stroke="#1AAFBF" stroke-width="1" opacity="0.3"/>
+          <circle cx="150" cy="150" r="112" fill="none" stroke="#1AAFBF" stroke-width="1" opacity="0.2"/>
+        </svg>
+      </div>
+    </div>
+
+    <div class="two-col">
+      <div class="block">
+        <h3>What is water conservation?</h3>
+        <p>Water conservation means using freshwater responsibly and cutting down on waste — through everyday habits, better infrastructure, and technology — so supply keeps up with the needs of people, farming, and ecosystems, now and later.</p>
+      </div>
+      <div class="block">
+        <h3>Why it matters</h3>
+        <p>Freshwater is a tiny slice of what's on Earth, and it's unevenly shared. Rising demand, changing rainfall patterns, and ageing infrastructure are putting more regions under water stress — conservation is one of the few levers every household can pull directly.</p>
+      </div>
+    </div>
+
+    <div class="sec-head" style="margin-top:8px;">
+      <div class="eyebrow"><span class="dot"></span> BY THE NUMBERS</div>
+      <h2>The scale of the problem</h2>
+    </div>
+    <div class="stat-grid">
+      <div class="stat-card">
+        <b>3%</b>
+        <span>of all water on Earth is freshwater — most of it locked in glaciers and ice caps.</span>
+        <span class="src">Source: FAO / Concern Worldwide</span>
+      </div>
+      <div class="stat-card">
+        <b>2.1B</b>
+        <span>people worldwide still lack access to safely managed drinking water at home.</span>
+        <span class="src">Source: WHO / UNICEF, 2025</span>
+      </div>
+      <div class="stat-card">
+        <b>70%</b>
+        <span>of global freshwater withdrawals go toward agriculture and irrigation.</span>
+        <span class="src">Source: FAO AQUASTAT</span>
+      </div>
+      <div class="stat-card">
+        <b>2.7B</b>
+        <span>people experience water scarcity for at least one month every year.</span>
+        <span class="src">Source: WWF</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== ABOUT PROJECT ===================== -->
+<section id="about">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow"><span class="dot"></span> ABOUT THE PROJECT</div>
+      <h2>Objective, method, and where it happened</h2>
+      <p>Details of this internship project — edit the placeholders below with your own information. <span class="edit-note">edit me</span></p>
+    </div>
+    <div class="about-grid">
+      <div class="about-card">
+        <h3><span class="num">01</span> Objective</h3>
+        <p>To study household water usage habits in the survey area, identify common sources of water wastage, and spread awareness of simple, low-cost conservation practices through direct interaction and a survey.</p>
+      </div>
+      <div class="about-card">
+        <h3><span class="num">02</span> Methodology</h3>
+        <ul>
+          <li>Designed a short household survey covering daily usage, leaks, and awareness levels</li>
+          <li>Visited households / conducted interviews in the study area</li>
+          <li>Collected and tallied responses, noted common patterns</li>
+          <li>Prepared awareness material and this website as an outreach tool</li>
+        </ul>
+      </div>
+      <div class="about-card">
+        <h3><span class="num">03</span> Area visited</h3>
+        <p>Garhi No. 5, Bhatta Road, Ghaziabad — survey conducted in and around my own neighbourhood, covering nearby households and lanes.</p>
+      </div>
+      <div class="about-card">
+        <h3><span class="num">04</span> Internship details</h3>
+        <ul>
+          <li>Intern name: Anikesh Mishra</li>
+          <li>Program: Self internship</li>
+          <li>Duration: 1 July – 15 July</li>
+          <li>Guide: Aman Kumar</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== TIPS ===================== -->
+<section id="tips">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow"><span class="dot"></span> WATER SAVING TIPS</div>
+      <h2>Small habits, real savings</h2>
+      <p>Practical, low-cost changes anyone can make at home.</p>
+    </div>
+    <div class="tips-grid">
+      <div class="tip-card"><div class="tip-icon">🚰</div><div class="tip-num">TIP 01</div><h3>Turn off taps</h3><p>Shut the tap while brushing, soaping, or scrubbing dishes instead of letting it run.</p></div>
+      <div class="tip-card"><div class="tip-icon">🔧</div><div class="tip-num">TIP 02</div><h3>Fix leaks</h3><p>A slow drip can waste dozens of litres a day — check taps, pipes, and cisterns regularly.</p></div>
+      <div class="tip-card"><div class="tip-icon">🌧️</div><div class="tip-num">TIP 03</div><h3>Rainwater harvesting</h3><p>Collect roof runoff in a tank or recharge pit to cut dependence on piped or ground water.</p></div>
+      <div class="tip-card"><div class="tip-icon">♻️</div><div class="tip-num">TIP 04</div><h3>Reuse RO reject water</h3><p>Redirect the wastewater from RO purifiers to plants, mopping, or flushing instead of draining it.</p></div>
+      <div class="tip-card"><div class="tip-icon">🪣</div><div class="tip-num">TIP 05</div><h3>Bucket over shower</h3><p>A bucket bath typically uses far less water than a long shower — an easy daily swap.</p></div>
+      <div class="tip-card"><div class="tip-icon">🌳</div><div class="tip-num">TIP 06</div><h3>Plant trees</h3><p>Tree cover improves groundwater recharge and helps stabilise local rainfall patterns over time.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== REPORT ===================== -->
+<section id="report">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow"><span class="dot"></span> REPORT AN ISSUE</div>
+      <h2>Spotted a leak or overflow?</h2>
+      <p>Log it here with a photo and location — reports are visible to everyone viewing this site.</p>
+    </div>
+    <div class="report-grid">
+      <div class="report-panel">
+        <h3 style="font-size:17px;font-weight:600;margin-bottom:10px;">New report</h3>
+        <label>Type of issue</label>
+        <div class="cats" id="catButtons"></div>
+
+        <label>Title</label>
+        <input type="text" id="rTitle" placeholder="e.g. Overflowing tank near main road" maxlength="70">
+
+        <label>Description</label>
+        <textarea id="rDesc" placeholder="What did you notice? How long has it been going on?" maxlength="400"></textarea>
+
+        <label>Photo</label>
+        <div class="photo-drop" id="photoDrop">Tap to add a photo</div>
+        <input type="file" accept="image/*" id="rPhoto" style="display:none">
+
+        <label>Location</label>
+        <button class="btn ghost" id="geoBtn" type="button" style="width:100%;">📍 Tag my location</button>
+        <div class="geo-status" id="geoStatus"></div>
+
+        <button class="btn primary" id="reportSubmitBtn" type="button" style="width:100%; margin-top:16px;">Submit report</button>
+        <p class="report-msg" id="reportMsg"></p>
+      </div>
+
+      <div>
+        <p class="share-note">This site has no backend, so each report is normally only saved on your own device. Use "Copy share link" to send a specific report anywhere — the link carries the report's own data, so opening it on any phone or laptop shows that report, even without a shared server.</p>
+        <div class="find-row">
+          <input type="text" id="findInput" placeholder="paste a shared link">
+          <button class="btn ghost" id="findBtn" type="button" style="padding:8px 14px;">Open</button>
+        </div>
+        <div id="reportFeed"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== CONTACT ===================== -->
+<section id="contact">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow"><span class="dot"></span> GET IN TOUCH</div>
+      <h2>Contact</h2>
+      <p>Questions, feedback, or want to be part of the survey? Send a message.</p>
+    </div>
+    <div class="contact-grid">
+  

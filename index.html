@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Amazon Project</title>
+
+  <!-- Google Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap"
+    rel="stylesheet"
+  >
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="styles/shared/general.css">
+  <link rel="stylesheet" href="styles/shared/amazon-header.css">
+  <link rel="stylesheet" href="styles/pages/amazon.css">
+</head>
+
+<body>
+
+  <!-- ================= HEADER ================= -->
+
+  <header class="amazon-header">
+
+    <!-- Left Section -->
+    <div class="amazon-header-left-section">
+
+      <a href="amazon.html" class="header-link">
+
+        <img
+          class="amazon-logo"
+          src="images/amazon-logo-white.png"
+          alt="Amazon"
+        >
+
+        <img
+          class="amazon-mobile-logo"
+          src="images/amazon-mobile-logo-white.png"
+          alt="Amazon"
+        >
+
+      </a>
+
+    </div>
+
+
+    <!-- Search Section -->
+    <div class="amazon-header-middle-section">
+
+      <input
+        class="search-bar"
+        type="search"
+        placeholder="Search"
+        aria-label="Search products"
+      >
+
+      <button
+        class="search-button"
+        type="button"
+        aria-label="Search"
+      >
+
+        <img
+          class="search-icon"
+          src="images/icons/search-icon.png"
+          alt="Search"
+        >
+
+      </button>
+
+    </div>
+
+
+    <!-- Right Section -->
+    <div class="amazon-header-right-section">
+
+      <!-- Returns & Orders -->
+      <a
+        class="orders-link header-link"
+        href="orders.html"
+      >
+
+        <span class="returns-text">
+          Returns
+        </span>
+
+        <span class="orders-text">
+          &amp; Orders
+        </span>
+
+      </a>
+
+
+      <!-- Cart -->
+      <a
+        class="cart-link header-link"
+        href="checkout.html"
+      >
+
+        <img
+          class="cart-icon"
+          src="images/icons/cart-icon.png"
+          alt="Cart"
+        >
+
+        <span class="cart-quantity js-cart-quantity">
+          0
+        </span>
+
+        <span class="cart-text">
+          Cart
+        </span>
+
+      </a>
+
+    </div>
+
+  </header>
+
+
+  <!-- ================= PRODUCTS ================= -->
+
+  <main class="main">
+
+    <!--
+      Products are generated automatically
+      by backend/scripts/amazon.js
+    -->
+    <div class="products-grid js-product-grid"></div>
+
+  </main>
+
+
+  <!-- ================= JAVASCRIPT ================= -->
+
+  <script
+    type="module"
+    src="backend/scripts/amazon.js"
+  ></script>
+
+</body>
+
+</html>
