@@ -1,4 +1,5 @@
 # 🛒 Amazon Clone
+https://amazon-clone-tau-gray.vercel.app/
 
 A front-end Amazon clone built using **HTML, CSS, and JavaScript**.  
 This project recreates the basic shopping experience of Amazon, including product listings, cart functionality, and checkout.
